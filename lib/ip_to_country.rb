@@ -21,7 +21,8 @@ class IpToCountry
           # at comparison, values are big endian, i.e. packed("N")
           if ipstr>=str[0,4]     # is this IP not below the current range?
             if ipstr<=str[4,4]   # is this IP not above the current range?
-              return rfile.read(2) # a perfect match, voila!
+              result = rfile.read(2) # a perfect match, voila!
+              return result == 'ZZ' ? nil : result
               break
             else
               low=mid+1          # binary search: raise lower limit
@@ -30,7 +31,7 @@ class IpToCountry
             high=mid-1           # binary search: reduce upper limit
           end
           if low>high            # no entries left? nothing found
-            puts "no country"
+            return nil 
             break
           end
         end
