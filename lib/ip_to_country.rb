@@ -1,5 +1,12 @@
 class IpToCountry
   @@packed_ip_file = File.join(File.dirname(__FILE__), '..', 'bin', 'packed-ip.dat')
+  @@white_list = [ '127.0.0.1' ]
+
+  def self.white_list?( ip_address )
+    @@white_list.include?( ip_address )    
+  end
+ 
+  def self.white_list; @@white_list; end
   
   def self.country_of( *arr )
     # the binary table file is looked up with each request
